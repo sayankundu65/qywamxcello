@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cello. Likha Hua Hai. — Campaign Platform 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Base Color Tokens: Alternating Editorial Ink & Paper */
+    --paper: #FAF8F5;
+    --paper-deep: #F2EDE4;
+    --ink: #0E1013;
+    --ink-deep: #08090C;
+    --ink-plum: #141219;
+
+    --red: #C82A1C;
+    --red-bright: #E03525;
+    --red-glow: rgba(224, 53, 37, 0.25);
+    
+    --gold: #C69A45;
+    --gold-light: #DFC07A;
+    --gold-soft: rgba(198, 154, 69, 0.18);
+    
+    --text-on-paper: #181715;
+    --text-on-paper-soft: rgba(24, 23, 21, 0.68);
+    --text-on-paper-muted: rgba(24, 23, 21, 0.45);
+    
+    --text-on-ink: #F7F5F0;
+    --text-on-ink-soft: rgba(247, 245, 240, 0.72);
+    --text-on-ink-muted: rgba(247, 245, 240, 0.45);
+
+    --hair-paper: rgba(24, 23, 21, 0.08);
+    --hair-ink: rgba(255, 255, 255, 0.08);
+    
+    /* Card Container Tokens */
+    --card-bg-paper: #FFFFFF;
+    --card-border-paper: rgba(24, 23, 21, 0.08);
+    --card-bg-ink: rgba(255, 255, 255, 0.035);
+    --card-border-ink: rgba(255, 255, 255, 0.09);
+    
+    --chip-bg: rgba(14, 16, 19, 0.88);
+    --chip-text: #FAF8F5;
+    --chip-border: rgba(255, 255, 255, 0.12);
+    
+    --card-shadow: 0 16px 36px -16px rgba(20, 18, 15, 0.07), 0 3px 10px -2px rgba(20, 18, 15, 0.03);
+    --card-shadow-hover: 0 24px 50px -16px rgba(20, 18, 15, 0.14), 0 6px 18px -4px rgba(20, 18, 15, 0.06);
+    --card-shadow-ink: 0 20px 48px -20px rgba(0, 0, 0, 0.6);
+    
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Work Sans', system-ui, -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --logo-font: 'Baloo 2', sans-serif;
+    --wrap: 1200px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { box-sizing: border-box; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+
+  html, body {
+    margin: 0; padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: var(--ink-deep);
+    color: var(--text-on-paper);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: #FFF; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .wrap {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 0 clamp(24px, 5vw, 84px);
+    width: 100%;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.015em;
+  }
+  p { margin: 0; }
+
+  /* ================= DECK SHELL ================= */
+  #deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(32px) scale(0.99);
+    transition: opacity .8s var(--ease), transform .8s var(--ease), visibility 0s linear .8s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    padding-bottom: clamp(24px, 3.5vh, 40px);
+  }
+  .slide::-webkit-scrollbar { width: 6px; }
+  .slide::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.25); border-radius: 6px; }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity .8s var(--ease), transform .8s var(--ease), visibility 0s linear 0s;
+    z-index: 5;
+  }
+  .slide.leaving-up { transform: translateY(-32px) scale(1.01); }
+  .slide.leaving-down { transform: translateY(32px) scale(0.99); }
+
+  .slide-inner {
+    padding-top: clamp(48px, 6vh, 72px);
+    padding-bottom: clamp(20px, 3vh, 32px);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .slide-inner::after {
+    content: '';
+    display: block;
+    height: clamp(130px, 18vh, 220px);
+    min-height: clamp(130px, 18vh, 220px);
+    width: 100%;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  /* Slide Background Themes */
+  .bg-paper { background: var(--paper); color: var(--text-on-paper); }
+  .bg-paper-deep { background: var(--paper-deep); color: var(--text-on-paper); }
+  .bg-ink { background: var(--ink); color: var(--text-on-ink); }
+  .bg-ink-deep { background: var(--ink-deep); color: var(--text-on-ink); }
+  .bg-ink-plum { background: var(--ink-plum); color: var(--text-on-ink); } 
+
+  /* Kickers, Letters, Headings */
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .kicker::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .bg-ink .kicker, .bg-ink-deep .kicker, .bg-ink-plum .kicker { color: var(--gold); }
+
+  .sec-letter {
+    position: absolute;
+    top: clamp(24px, 4vh, 44px);
+    right: clamp(20px, 4vw, 56px);
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-weight: 300;
+    opacity: 0.07;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .bg-ink .sec-letter, .bg-ink-deep .sec-letter, .bg-ink-plum .sec-letter { opacity: 0.12; color: #FFF; }
+
+  h2.h-lg {
+    font-size: clamp(1.8rem, 3.8vw, 2.85rem);
+    max-width: 22ch;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .lede {
+    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    max-width: 62ch;
+    margin-top: 16px;
+    color: var(--text-on-paper-soft);
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .bg-ink .lede, .bg-ink-deep .lede, .bg-ink-plum .lede { color: var(--text-on-ink-soft); }
+
+  .hair {
+    border: none;
+    border-top: 1px solid var(--hair-paper);
+    margin: 28px 0;
+  }
+  .bg-ink .hair, .bg-ink-deep .hair, .bg-ink-plum .hair { border-top-color: var(--hair-ink); }
+
+  /* Stagger Animations */
+  .slide .fx {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .7s var(--ease), transform .7s var(--ease);
+  }
+  .slide.active .fx { opacity: 1; transform: translateY(0); }
+  .slide.active .kicker { opacity: 1; transform: translateY(0); transition: opacity .6s var(--ease) .05s, transform .6s var(--ease) .05s; }
+  .slide.active .h-lg { opacity: 1; transform: translateY(0); transition: opacity .7s var(--ease) .1s, transform .7s var(--ease) .1s; }
+  .slide.active .lede { opacity: 1; transform: translateY(0); transition: opacity .7s var(--ease) .18s, transform .7s var(--ease) .18s; }
+  .slide.active .fx-1 { transition-delay: .12s; }
+  .slide.active .fx-2 { transition-delay: .22s; }
+  .slide.active .fx-3 { transition-delay: .32s; }
+  .slide.active .fx-4 { transition-delay: .42s; }
+  .slide.active .fx-5 { transition-delay: .52s; }
+  .slide.active .fx-6 { transition-delay: .62s; }
+
+  /* ================= 01 COVER ================= */
+  #cover { background: var(--ink-deep); padding-bottom: 0; }
+  #cover .cover-atmos {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  #cover .glow {
+    position: absolute; left: 50%; top: 35%;
+    width: 1100px; height: 1100px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center, rgba(200, 42, 28, 0.22) 0%, rgba(198, 154, 69, 0.12) 35%, transparent 68%);
+    filter: blur(75px);
+    animation: drift 16s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    100% { transform: translate(-48%, -52%) scale(1.1); }
+  }
+  #cover .grain-lines {
+    position: absolute; left: 50%; top: 62%;
+    width: 900px; height: 900px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center, rgba(198, 154, 69, 0.14) 0%, transparent 70%);
+    filter: blur(50px);
+  }
+  #cover .horizon {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
+    background: linear-gradient(180deg, transparent 0%, rgba(8, 9, 12, 0.8) 100%);
+  }
+  #cover .cover-content {
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  #cover .lockup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(20px, 3.5vw, 44px);
+    opacity: 0;
+    transform: translateY(24px) scale(.96);
+    transition: opacity 1s var(--ease) .15s, transform 1s var(--ease) .15s;
+  }
+  .slide.active#cover .lockup { opacity: 1; transform: translateY(0) scale(1); }
+
+  .q-logo-img {
+    height: clamp(24px, 3.5vw, 42px);
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.08));
+    display: block;
+    user-select: none;
+  }
+
+  .x-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+    color: var(--gold);
+    opacity: 0.8;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+
+  .cello-logo-img {
+    height: clamp(48px, 6.5vw, 76px);
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 16px 36px -10px rgba(224, 53, 37, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    display: block;
+    user-select: none;
+    transition: transform .3s ease;
+  }
+  .cello-logo-img:hover {
+    transform: scale(1.02);
+  }
+
+  /* ================= 02 DISCLAIMER (DECK STYLE) ================= */
+  .disclaimer-card {
+    margin-top: clamp(20px, 3vh, 32px);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
+    border: 1px solid rgba(198, 154, 69, 0.28);
+    border-left: 3px solid var(--gold);
+    border-radius: 16px;
+    padding: clamp(22px, 3.2vw, 34px);
+    box-shadow: var(--card-shadow-ink);
+    backdrop-filter: blur(14px);
+    position: relative;
+    overflow: hidden;
+  }
+  .disc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding: 4px 10px;
+    background: rgba(198, 154, 69, 0.08);
+    border: 1px solid rgba(198, 154, 69, 0.2);
+    border-radius: 6px;
+  }
+  .disc-badge .dot-red {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red-bright);
+    box-shadow: 0 0 6px var(--red-bright);
+  }
+  .disclaimer-body {
+    font-family: var(--sans);
+    font-size: clamp(0.76rem, 1.05vw, 0.9rem);
+    line-height: 1.68;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-align: justify;
+    color: rgba(247, 245, 240, 0.85);
+  }
+  .disc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-on-ink-muted);
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .disc-tag { color: var(--gold-light); }
+
+  /* ================= 03 QYWAM INTRO ================= */
+  #qywam .q-ethos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 24px);
+    margin-top: clamp(24px, 3.5vh, 36px);
+  }
+  @media (max-width: 720px) {
+    #qywam .q-ethos { grid-template-columns: 1fr; }
+  }
+  .q-ethos-card {
+    background: var(--card-bg-ink);
+    border: 1px solid var(--card-border-ink);
+    border-radius: 14px;
+    padding: 24px 22px;
+    backdrop-filter: blur(10px);
+    transition: transform .3s var(--ease), border-color .3s ease, background .3s ease;
+  }
+  .q-ethos-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(198, 154, 69, 0.35);
+    background: rgba(255, 255, 255, 0.055);
+  }
+  .q-ethos-card .q-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .q-ethos-card .q-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: #FFF;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .q-ethos-card .q-desc {
+    font-size: 0.86rem;
+    color: var(--text-on-ink-soft);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* ================= 04 STATS ================= */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  @media (max-width: 820px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .stat-strip { grid-template-columns: 1fr; } }
+  
+  .stat {
+    background: var(--card-bg-paper);
+    padding: 24px 22px;
+    border-radius: 14px;
+    border: 1px solid var(--card-border-paper);
+    box-shadow: var(--card-shadow);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--gold) 100%);
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+  .stat:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: rgba(198, 154, 69, 0.3);
+  }
+  .stat:hover::before { opacity: 1; }
+  
+  .stat .num {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+    color: var(--red);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .stat .lbl {
+    font-size: 0.82rem;
+    color: var(--text-on-paper-soft);
+    margin-top: 8px;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  /* ================= SPLIT LAYOUT ================= */
+  .split {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: start;
+  }
+  .split.rev { grid-template-columns: 0.95fr 1.05fr; }
+  .split.rev > *:first-child { order: 2; }
+  @media (max-width: 860px) {
+    .split, .split.rev { grid-template-columns: 1fr; }
+    .split.rev > *:first-child { order: 0; }
+  }
+
+  /* ================= STORYBOARD & SHOT CARDS ================= */
+  .shot {
+    position: relative;
+    aspect-ratio: var(--ar, 4/5);
+    overflow: hidden;
+    border-radius: 14px;
+    background: #111317;
+    color: #F7F5F0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease;
+  }
+  .shot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform .45s var(--ease);
+  }
+  .shot:hover img {
+    transform: scale(1.05);
+  }
+  .shot::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .shot:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 44px -16px rgba(0, 0, 0, 0.35);
+    border-color: rgba(198, 154, 69, 0.4);
+  }
+  .shot .slot-info {
+    position: relative;
+    z-index: 2;
+    padding: clamp(14px, 2vw, 20px);
+    width: 100%;
+    background: linear-gradient(0deg, rgba(10, 12, 15, 0.95) 0%, rgba(10, 12, 15, 0.72) 65%, transparent 100%);
+  }
+  .shot .slot-tag, .beat-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .shot .slot-tag::before, .beat-label::before {
+    content: '';
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--red-bright);
+  }
+  .shot .slot-desc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: rgba(247, 245, 240, 0.88);
+  }
+
+  /* Grid Layouts */
+  .grid {
+    display: grid;
+    gap: 16px;
+  }
+  .grid.cols-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 1080px) {
+    .grid.cols-5 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .grid.cols-5, .grid.cols-4 { grid-template-columns: 1fr; }
+  }
+  .cols-5 .shot .slot-info {
+    padding: 10px 12px;
+  }
+  .cols-5 .shot .slot-desc {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  /* Reels Media Visual Grid (Slide 09) */
+  .reels-media-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 1100px) {
+    .reels-media-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .reels-media-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .reel-media-card {
+    position: relative;
+    aspect-ratio: 9/16;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #111317;
+    border: 1px solid rgba(24, 23, 21, 0.12);
+    box-shadow: var(--card-shadow);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease;
+    margin: 0;
+  }
+  .reel-media-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(200, 42, 28, 0.4);
+  }
+  .reel-media-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .45s var(--ease);
+  }
+  .reel-media-card:hover img {
+    transform: scale(1.05);
+  }
+  .reel-media-card .reel-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 10px 10px;
+    background: linear-gradient(0deg, rgba(10, 12, 15, 0.94) 0%, rgba(10, 12, 15, 0.6) 70%, transparent 100%);
+    color: #FFF;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+  .reel-media-card .reel-tag::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--red-bright);
+  }
+
+  /* Storyboard Grid for Anthem Film (Slide 07) */
+  .film-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .film-meta-pill {
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    padding: 10px 18px;
+    border-radius: 100px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+  }
+  .film-meta-pill .fm-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--red);
+    text-transform: uppercase;
+  }
+
+  /* ================= 05 INSIGHT DUAL CARDS ================= */
+  .tagcloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .tagcloud span {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(0.82rem, 1.15vw, 0.98rem);
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: var(--text-on-ink);
+    transition: all .25s ease;
+  }
+  .tagcloud span:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    color: var(--gold);
+  }
+
+  .statement {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.6vw, 1.95rem);
+    line-height: 1.18;
+    max-width: 26ch;
+  }
+  .statement em { font-style: italic; color: var(--gold); font-weight: 400; }
+
+  .insight-card {
+    background: var(--card-bg-ink);
+    border: 1px solid var(--card-border-ink);
+    border-radius: 16px;
+    padding: clamp(18px, 2.4vw, 26px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--card-shadow-ink);
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s var(--ease), border-color .3s ease;
+  }
+  .insight-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(198, 154, 69, 0.35);
+  }
+  .insight-card.tension:hover {
+    border-color: rgba(224, 53, 37, 0.4);
+  }
+  .insight-card h3 {
+    font-size: 1.15rem;
+    color: var(--text-on-ink);
+    margin-bottom: 12px;
+  }
+
+  /* ================= 06 & 07 REVEAL CARDS (THE BIG IDEA) ================= */
+  /* Opportunity Hero Card */
+  .opp-card {
+    margin-top: 32px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(198, 154, 69, 0.3);
+    border-left: 4px solid var(--gold);
+    border-radius: 16px;
+    padding: clamp(28px, 4vw, 44px);
+    box-shadow: 0 20px 48px -16px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+  }
+  .opp-card p {
+    color: var(--gold-light);
+    font-size: clamp(1.02rem, 1.4vw, 1.15rem);
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+
+  /* Centerpiece Big Idea Monolith */
+  .reveal {
+    margin-top: 36px;
+    background: var(--ink-deep);
+    color: var(--text-on-ink);
+    padding: clamp(44px, 7vw, 76px) clamp(32px, 6vw, 68px);
+    border-radius: 20px;
+    border: 1px solid rgba(198, 154, 69, 0.3);
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.45), 0 0 50px rgba(198, 154, 69, 0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .reveal::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at center, rgba(198, 154, 69, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .reveal .rline {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .reveal .rtrans {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--gold);
+    font-size: clamp(1.1rem, 2vw, 1.45rem);
+    margin-top: 18px;
+  }
+  .reveal .rsub {
+    margin-top: 20px;
+    color: var(--text-on-ink-soft);
+    max-width: 48ch;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ================= 07B RATIONALE CARDS ================= */
+  .rationale {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .r-item {
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 14px;
+    padding: 22px 20px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    gap: 16px;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease;
+  }
+  .r-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: rgba(198, 154, 69, 0.35);
+  }
+  .r-item .r-num {
+    font-family: var(--mono);
+    color: var(--red);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .r-item h3 {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-on-paper);
+  }
+  .r-item p {
+    color: var(--text-on-paper-soft);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Campaign Architecture Table */
+  .arch-table {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .arch-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+    padding: 14px 18px;
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px -2px rgba(20, 18, 15, 0.03);
+    align-items: center;
+  }
+  .arch-row .a-key {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text-on-paper);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .arch-row .a-key::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+  }
+  .arch-row .a-val {
+    color: var(--text-on-paper-soft);
+    font-size: 0.86rem;
+  }
+  @media (max-width: 700px) {
+    .arch-row { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ================= 08B LETTER & REELS ================= */
+  .letter-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(198, 154, 69, 0.25);
+    border-radius: 14px;
+    padding: 26px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+  }
+  .letter-card::before {
+    content: '“';
+    position: absolute;
+    top: 8px; right: 20px;
+    font-family: var(--serif);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
+  /* ================= 08B REELS ================= */
+  .reels-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(16px, 2vw, 24px);
+    margin-top: clamp(24px, 3.5vh, 36px);
+  }
+  @media (max-width: 980px) {
+    .reels-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .reels-grid { grid-template-columns: 1fr; }
+  }
+
+  .reel-card {
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 16px;
+    padding: clamp(22px, 2.5vw, 30px);
+    box-shadow: var(--card-shadow);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .reel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: rgba(200, 42, 28, 0.35);
+  }
+  .reel-card .rr-cat {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-on-paper);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .reel-card .rr-hook {
+    color: var(--text-on-paper-soft);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    flex-grow: 1;
+  }
+  .reel-card .rr-fmt {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--red);
+    margin-top: 18px;
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(200, 42, 28, 0.08);
+    border: 1px solid rgba(200, 42, 28, 0.15);
+    border-radius: 6px;
+    align-self: flex-start;
+  }
+
+  /* ================= 09 EXTENSIONS & UGC ================= */
+  .ext-card {
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    height: 100%;
+  }
+  .ext-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: var(--text-on-paper);
+  }
+  .ext-card p {
+    font-size: 0.88rem;
+    color: var(--text-on-paper-soft);
+    line-height: 1.55;
+  }
+
+  .ugc-box {
+    margin-top: 24px;
+    padding: 24px;
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+  }
+
+  /* ================= 10 GEO STRATEGY ================= */
+  .geo-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .geo-card {
+    display: grid;
+    grid-template-columns: 200px 1.2fr 1fr;
+    gap: 20px;
+    padding: 16px 22px;
+    background: var(--card-bg-ink);
+    border: 1px solid var(--card-border-ink);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    align-items: center;
+    font-size: 0.86rem;
+    transition: transform .25s var(--ease), border-color .25s ease;
+  }
+  .geo-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(198, 154, 69, 0.35);
+  }
+  .geo-card .g-pillar {
+    font-weight: 600;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .geo-card .g-pillar::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+  }
+  .geo-card .g-do { color: var(--text-on-ink-soft); }
+  .geo-card .g-ex {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--gold-light);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  @media (max-width: 820px) {
+    .geo-card { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  /* ================= 11 METRICS ================= */
+  .media-card, .metrics-card {
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 16px;
+    padding: clamp(22px, 3vw, 32px);
+    box-shadow: var(--card-shadow);
+  }
+  .metric-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .metric-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(24, 23, 21, 0.025);
+    border-radius: 8px;
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .metric-item .m-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  /* ================= 13 THANK YOU & CONTACT ================= */
+  .contact-grid {
+    margin-top: clamp(28px, 4vh, 40px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 780px;
+  }
+  .contact-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: clamp(22px, 3vw, 30px);
+    box-shadow: 0 20px 48px -16px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
+    transition: transform .25s var(--ease), border-color .25s ease, box-shadow .25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0.6;
+    transition: opacity .3s ease;
+  }
+  .contact-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(198, 154, 69, 0.45);
+    box-shadow: 0 24px 52px -16px rgba(198, 154, 69, 0.18);
+  }
+  .contact-card:hover::before {
+    opacity: 1;
+  }
+  .contact-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .contact-name {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2vw, 1.48rem);
+    color: #FFF;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 2px;
+  }
+  .contact-role {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .contact-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 0.98rem;
+    color: var(--gold-light);
+    text-decoration: none;
+    transition: color .2s ease, transform .2s ease;
+    width: fit-content;
+  }
+  .contact-phone:hover {
+    color: #FFF;
+    transform: translateX(4px);
+  }
+  .contact-phone svg {
+    width: 17px;
+    height: 17px;
+    stroke: currentColor;
+    flex-shrink: 0;
+  }
+
+  .foot-meta {
+    margin-top: 48px;
+    font-size: 0.82rem;
+    color: var(--text-on-ink-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--hair-ink);
+    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .fbrand {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--text-on-ink);
+  }
+
+  /* ================= TOP BRAND CHIP ================= */
+  .topchip {
+    position: fixed;
+    top: 20px;
+    left: clamp(20px, 4vw, 44px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--logo-font);
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--chip-text);
+    background: var(--chip-bg);
+    border: 1px solid var(--chip-border);
+    padding: 6px 14px;
+    border-radius: 100px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4);
+  }
+  .topchip .dot-red {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red-bright);
+    box-shadow: 0 0 8px var(--red-bright);
+  }
+
+  /* ================= NAV: FLOATING BOTTOM BAR ================= */
+  .navbar {
+    position: fixed;
+    right: clamp(20px, 3.5vw, 44px);
+    bottom: clamp(16px, 2.5vh, 26px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    background: rgba(14, 16, 20, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 100px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 0 1px rgba(255, 255, 255, 0.2);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  @media (max-width: 640px) {
+    .navbar {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+    }
+  }
+
+  .nav-arrows { display: flex; gap: 6px; }
+  .nav-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    color: #FFF;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  }
+  .nav-btn:hover {
+    background: var(--red-bright);
+    border-color: var(--red-bright);
+    box-shadow: 0 0 14px var(--red-glow);
+  }
+  .nav-btn:active { transform: scale(0.92); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+  .nav-btn:disabled:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.1); box-shadow: none; }
+  .nav-btn svg { width: 16px; height: 16px; }
+
+  .nav-counter {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: #FFF;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .nav-counter .cur { color: var(--gold); font-weight: 600; }
+  .nav-counter .sep { opacity: 0.35; }
+  .nav-counter .lbl {
+    margin-left: 6px;
+    opacity: 0.75;
+    display: none;
+  }
+  @media (min-width: 640px) { .nav-counter .lbl { display: inline; } }
+
+  /* Top Progress Fill */
+  .nav-progress {
+    position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 210;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .nav-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red) 0%, var(--gold) 100%);
+    width: 0%;
+    transition: width .6s var(--ease);
+  }
+
+  /* ================= NAV: DOT LIST (side, desktop) ================= */
+  .dotnav {
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+    z-index: 200; display: flex; flex-direction: column; gap: 12px; align-items: flex-end;
+  }
+  .dotnav button {
+    all: unset;
+    display: flex; align-items: center; gap: 9px; cursor: pointer;
+    color: var(--text-on-ink-soft);
+  }
+  .dotnav .tip {
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.02em;
+    background: rgba(14, 16, 20, 0.9);
+    color: #FFF;
+    padding: 4px 8px; border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    opacity: 0; transform: translateX(6px);
+    transition: opacity .18s ease, transform .18s ease;
+    white-space: nowrap; pointer-events: none;
+  }
+  .dotnav button:hover .tip { opacity: 1; transform: translateX(0); }
+  .dotnav .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: currentColor; opacity: 0.3;
+    transition: opacity .2s ease, transform .2s ease, background .2s ease;
+    flex-shrink: 0;
+  }
+  .dotnav button.active .dot { opacity: 1; background: var(--red-bright); transform: scale(1.6); box-shadow: 0 0 10px var(--red-bright); }
+  .dotnav button.active .tip { color: var(--gold); }
+  @media (max-width: 980px) { .dotnav { display: none; } }
+
+  /* Keyboard Hint */
+  .kbd-hint {
+    position: fixed;
+    bottom: clamp(16px, 2.5vh, 26px);
+    left: clamp(20px, 3.5vw, 44px);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    color: var(--text-on-ink-soft);
+    background: rgba(14, 16, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.5);
+    padding: 7px 14px;
+    border-radius: 100px;
+    z-index: 199;
+    opacity: 1;
+    transition: opacity .5s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(12px);
+    pointer-events: none;
+  }
+  .kbd-hint.hide { opacity: 0; }
+  @media (max-width: 760px) { .kbd-hint { display: none; } }
+
+  /* ================= FULLSCREEN LIGHTBOX ================= */
+  .fs-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: rgba(10, 12, 15, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: #FFF;
+    opacity: 0;
+    transition: opacity .25s ease, background .2s ease, transform .2s ease;
+    backdrop-filter: blur(8px);
+  }
+  .shot:hover .fs-btn,
+  .reel-media-card:hover .fs-btn { opacity: 1; }
+  .fs-btn:hover {
+    background: var(--red-bright);
+    transform: scale(1.08);
+  }
+  .fs-btn svg { width: 15px; height: 15px; }
+
+  .fs-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(0, 0, 0, 0.92);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+    animation: fsIn .25s var(--ease);
+  }
+  .fs-overlay.open { display: flex; }
+  @keyframes fsIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .fs-overlay img {
+    max-width: 92vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.8);
+    display: block;
+  }
+  .fs-close {
+    position: absolute;
+    top: 22px; right: 26px;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: #FFF;
+    font-size: 1.4rem;
+    line-height: 1;
+    transition: background .2s ease, transform .2s ease;
+    backdrop-filter: blur(10px);
+  }
+  .fs-close:hover { background: var(--red-bright); transform: rotate(90deg); }
+
+  /* ================= SCENE SCRIPT (Slide 08) ================= */
+  .scene-script {
+    background: var(--card-bg-paper);
+    border: 1px solid var(--card-border-paper);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+  .scene-block {
+    padding: 22px 26px;
+    border-bottom: 1px solid var(--card-border-paper);
+  }
+  .scene-block:last-child { border-bottom: none; }
+  .scene-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .scene-label::before {
+    content: '';
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--red-bright);
+  }
+  .scene-body p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--text-on-paper-soft);
+    margin-top: 6px;
+  }
+  .scene-body p:first-child { margin-top: 0; }
+  .scene-body .dialogue {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-on-paper);
+    font-size: 0.92rem;
+    margin-top: 8px;
+  }
+  .vo-block {
+    margin-top: 24px;
+    background: var(--ink-deep);
+    color: var(--text-on-ink);
+    border-radius: 16px;
+    padding: 28px 30px;
+    border: 1px solid rgba(198, 154, 69, 0.25);
+    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+  .vo-block::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+  }
+  .vo-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .vo-label::before {
+    content: '';
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .vo-body {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+    line-height: 1.75;
+    color: var(--gold-light);
+  }
+  .vo-body strong {
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 700;
+    color: #FFF;
+    display: block;
+    margin-top: 14px;
+    font-size: 1.02rem;
+  }
+  .end-frame {
+    margin-top: 16px;
+    padding: 18px 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-on-ink-soft);
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .end-frame span {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-top: 6px;
+  }
+
+  /* Scene stack (Slide 08 images) */
+  .scene-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .scene-stack figure.shot {
+    aspect-ratio: auto;
+    height: clamp(300px, 36vw, 520px);
+    width: 100%;
+  }
+  .scene-stack figure.shot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* OOH — stacked above text cards */
+  .ooh-showcase .ooh-img-wrap {
+    width: 100%;
+    margin-bottom: 18px;
+  }
+  .ooh-showcase .ooh-img-wrap figure.shot {
+    aspect-ratio: 16/7;
+    width: 100%;
+    min-height: 180px;
+  }
+  .ooh-cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 700px) {
+    .ooh-cards-row { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="nav-progress"><div class="nav-progress-fill" id="progressFill"></div></div>
+
+<div class="topchip"><span class="dot-red"></span>Cello — Likha Hua Hai</div>
+
+<nav class="dotnav" id="dotnav"></nav>
+
+<div class="navbar">
+  <div class="nav-arrows">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="nav-btn" id="nextBtn" aria-label="Next slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+  <div class="nav-counter">
+    <span class="cur" id="curNum">01</span><span class="sep">/</span><span id="totNum">13</span>
+    <span class="lbl" id="curLabel">Cover</span>
+  </div>
+</div>
+
+<div class="kbd-hint" id="kbdHint">
+  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  Use arrow keys or scroll to navigate
+</div>
+
+<div id="deck">
+
+  <!-- ============================================================ -->
+  <!-- 01 · COVER -->
+  <!-- ============================================================ -->
+  <section id="cover" class="slide bg-ink-deep" data-label="Cover">
+    <div class="cover-atmos">
+      <div class="glow"></div>
+      <div class="grain-lines"></div>
+      <div class="horizon"></div>
+    </div>
+    <div class="wrap cover-content">
+      <div class="lockup">
+        <img src="public/qywam%20logo.png" alt="Qywam" class="q-logo-img">
+        <span class="x-mark">×</span>
+        <img src="public/cello%20logo.png" alt="Cello" class="cello-logo-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 02 · DISCLAIMER -->
+  <!-- ============================================================ -->
+  <section id="disclaimer" class="slide bg-ink-plum" data-label="Disclaimer">
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Confidentiality &amp; Notice</div>
+      <h2 class="h-lg fx">Legal Disclaimer</h2>
+      <p class="lede fx fx-1" style="color: var(--gold-light);">Proprietary campaign strategy &amp; intellectual property platform.</p>
+      
+      <div class="disclaimer-card fx fx-2">
+        <div class="disc-badge">
+          <span class="dot-red"></span>
+          <span>STRICTLY CONFIDENTIAL &bull; PROTECTED UNDER NDA</span>
+        </div>
+        <p class="disclaimer-body">
+          THE CONTENTS OF THIS DOCUMENT INCLUDING BUT NOT LIMITED TO IDEAS, CONCEPTS, TECHNIQUES, SLOGANS, TAG-LINES, DESIGNS, STRATEGIES ARE THE PROPERTY OF QYWAM AND ITS AFFILIATES WITH THE EXCEPTION OF ANY RIGHTS-BASED CONTENT SOURCED FROM THIRD PARTIES. IT MUST NOT BE REPRODUCED, TRANSMITTED, DISCLOSED IN WHOLE OR IN PART, OR STORED IN A RETRIEVAL SYSTEM OR TRANSMITTED IN ANY FORM OR BY ANY MEANS, ELECTRONIC OR MECHANICAL INCLUDING PHOTOCOPYING AND RECORDING OR OTHERWISE FOR ANY PURPOSE OTHER THAN UNDER THE EXECUTED NON DISCLOSURE AGREEMENT (NDA) OR UNDER ANY MUTUALLY EXECUTED AGREEMENT OR WITH THE PRIOR WRITTEN CONSENT FROM QYWAM AND ITS AFFILIATES. IF YOU DO NOT ACCEPT THESE TERMS, PLEASE DO NOT VIEW OR ACCESS THE CONTENTS OF THIS DOCUMENT ANY FURTHER. NON-COMPLIANCE OF THE SAME WILL INCUR NECESSARY LEGAL ACTION AND PENALTIES.
+        </p>
+        <div class="disc-footer">
+          <span class="disc-tag">Qywam and Affiliates &bull; All Rights Reserved</span>
+          <span>2026 Platform Deck</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 03 · QYWAM INTRO -->
+  <!-- ============================================================ -->
+  <section id="qywam" class="slide bg-ink-plum" data-label="Qywam">
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Who We Are · The Philosophy</div>
+      <h2 class="h-lg fx" style="max-width: 26ch;">We ain’t just another &ldquo;AI Studio.&rdquo;</h2>
+      <div class="lede fx" style="max-width: 66ch;">
+        <p>Qywam exists at the intersection of reality and AI — where human truth meets artificial intelligence. While most AI workflows are designed to produce more, faster, they often create content that feels polished, but hollow.</p>
+        <p style="margin-top: 12px; color: var(--gold-light); font-weight: 500;">Qywam takes a different approach.</p>
+        <p style="margin-top: 12px;">We use AI as a creative force, grounded in authentic human emotion, cultural insight, and real-world truth. Because the future of AI-generated content shouldn’t just look real. It should feel personal and relatable.</p>
+      </div>
+      
+      <div class="q-ethos fx fx-1">
+        <div class="q-ethos-card">
+          <div class="q-tag">Pillar 01</div>
+          <div class="q-title">More content.</div>
+          <div class="q-desc">More creative directions and narrative branches explored per brief.</div>
+        </div>
+        <div class="q-ethos-card">
+          <div class="q-tag">Pillar 02</div>
+          <div class="q-title">Lower TAT.</div>
+          <div class="q-desc">Significantly faster turnaround — shrinking the distance between strategic thought and film execution.</div>
+        </div>
+        <div class="q-ethos-card">
+          <div class="q-tag">Pillar 03</div>
+          <div class="q-title">Higher strategic clarity.</div>
+          <div class="q-desc">Sharp conviction and depth behind every single line that makes it to your deck.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 04 · SECTION A — CELLO WORLD -->
+  <!-- ============================================================ -->
+  <section id="briefing" class="slide bg-paper" data-label="Cello World">
+    <span class="sec-letter">A</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section A — The briefing</div>
+      <h2 class="h-lg fx">Cello World, in brief.</h2>
+      <p class="lede fx">64+ years in the market, three businesses under one name, and one real comeback that anchors everything else on this page.</p>
+
+      <div class="stat-strip fx fx-1">
+        <div class="stat"><div class="num" data-count="64" data-suffix="+ yrs">0</div><div class="lbl">In the market since 1962</div></div>
+        <div class="stat"><div class="num" data-count="2324" data-prefix="₹" data-suffix=" Cr">0</div><div class="lbl">FY26 revenue, +9% YoY</div></div>
+        <div class="stat"><div class="num" data-count="180000" data-suffix="+" data-format="lakh">0</div><div class="lbl">Retail touchpoints nationwide</div></div>
+        <div class="stat"><div class="num" data-count="11" data-suffix=" yrs">0</div><div class="lbl">How long Cello pens were gone</div></div>
+      </div>
+
+      <div class="split rev fx fx-2" style="margin-top: clamp(18px, 2.5vh, 26px);">
+        <div>
+          <figure class="shot" style="--ar: 16/10;">
+            <img src="public/4th%20slide%20image.jpeg" alt="The homecoming of Cello pens - Hands opening Butterflow pack" loading="lazy">
+            <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </figure>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size: 1.35rem; color: var(--text-on-paper);">The homecoming of Cello pens</h3>
+          <p class="lede" style="margin-top: 10px; font-size: 0.94rem; opacity: 1; transform: none;">Cello's writing instruments business left the portfolio in 2009. In 2025, the promoter group reacquired the Cello trademark — zero royalty, eleven years later. It's a rare thing in Indian marketing: a comeback that actually happened, not a manufactured nostalgia campaign.</p>
+          <p class="lede" style="margin-top: 12px; font-size: 0.88rem; opacity: 1; transform: none; color: var(--text-on-paper-muted);">Alongside it: Consumer Houseware (69% of revenue), Writing Instruments (16%, the fastest-growing), and Moulded Furniture (15%) — carried by a network of 5,000+ distributors and 1,80,000+ retailers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 05 · SECTION B — THE INSIGHT -->
+  <!-- ============================================================ -->
+  <section id="insight" class="slide bg-ink" data-label="The Insight">
+    <span class="sec-letter">B</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section B — The cultural insight</div>
+      <h2 class="h-lg fx" style="max-width: 22ch;">A question, before anything else.</h2>
+      <p class="statement fx fx-1" style="max-width: 26ch; margin-top: 12px;">What's the first Cello product you remember owning?</p>
+
+      <div class="tagcloud fx fx-2">
+        <span>Tiffin box</span>
+        <span>Steel water bottle</span>
+        <span>School pencil box</span>
+        <span>Kitchen storage jars</span>
+        <span>Exam-morning pen</span>
+      </div>
+      <p class="lede fx fx-3" style="margin-top: 12px; color: var(--gold-light);">Nobody says &ldquo;the brand I chose.&rdquo; They say the moment they remember it from.</p>
+
+      <div class="split fx fx-4" style="margin-top: clamp(18px, 2.5vh, 26px);">
+        <div class="insight-card">
+          <h3 style="color: var(--gold);">The insight</h3>
+          <p class="statement" style="margin-top: 10px; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.25;">Cello was never a product you chose. <em>It was already there.</em></p>
+          <p class="lede" style="margin-top: 14px; font-size: 0.9rem; opacity: 1; transform: none;">Before you had opinions about brands. Cello's role in Indian life has always been pre-decision, not post-decision.</p>
+        </div>
+        <div class="insight-card tension">
+          <h3 style="color: var(--red-bright);">The tension</h3>
+          <p class="lede" style="margin-top: 8px; font-size: 0.92rem; opacity: 1; transform: none;">Indian brand conversations have shifted from &ldquo;can I trust it?&rdquo; to &ldquo;does it say something about me?&rdquo; For a generation raised on aesthetic-led brands, &ldquo;legacy&rdquo; risks reading as default rather than desired. Cello is already proving it can be current: KidzBee, Steelox, the slow juicer, Quench Pro. None of it has a unifying story yet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <!-- 06 · SECTION C — THE IDEA -->
+  <!-- ============================================================ -->
+  <section id="bigidea" class="slide bg-paper" data-label="The Idea">
+    <span class="sec-letter">C</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section C — The idea</div>
+      <h2 class="h-lg fx">Demo Campaign Proposal</h2>
+
+      <div class="reveal fx fx-1">
+        <div class="rline">Cello.<br>Likha hua hai.</div>
+        <p class="rsub">Some names don’t need an introduction. They’re already trusted.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 08 · WHY THIS LINE -->
+  <!-- ============================================================ -->
+  <section id="rationale" class="slide bg-paper" data-label="Why This Line">
+    <span class="sec-letter">C</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section C — Why this line, the full rationale</div>
+      <h2 class="h-lg fx" style="max-width: 32ch;">5 reasons &ldquo;Cello. Likha Hua Hai.&rdquo; earns its place</h2>
+      
+      <div class="rationale fx fx-1">
+        <div class="r-item">
+          <div class="r-num">01</div>
+          <div>
+            <h3>It turns a product detail into a brand idea.</h3>
+            <p>&ldquo;Cello&rdquo; is literally written on the product. We take that simple truth and give it emotional meaning.</p>
+          </div>
+        </div>
+        <div class="r-item">
+          <div class="r-num">02</div>
+          <div>
+            <h3>It owns Cello’s strongest asset: familiarity.</h3>
+            <p>Cello doesn’t need to manufacture nostalgia. The brand has genuinely been present in everyday Indian life for generations.</p>
+          </div>
+        </div>
+        <div class="r-item">
+          <div class="r-num">03</div>
+          <div>
+            <h3>It makes legacy feel current, not nostalgic.</h3>
+            <p>Instead of looking backwards, the campaign asks: Where is the Cello name written in our lives today? This keeps the legacy relevant to a new generation.</p>
+          </div>
+        </div>
+        <div class="r-item">
+          <div class="r-num">04</div>
+          <div>
+            <h3>It can stretch across all three verticals.</h3>
+            <p>Pens, houseware and furniture are very different categories, but the same thought can connect them: the Cello name has been there across different moments of life.</p>
+          </div>
+        </div>
+        <div class="r-item">
+          <div class="r-num">05</div>
+          <div>
+            <h3>It is simple enough to remember, but deep enough to build on.</h3>
+            <p>&ldquo;Likha Hua Hai&rdquo; is short, culturally familiar and visually ownable. It can live across films, print, social, packaging, OOH and product-led storytelling without needing to reinvent the idea each time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 09 · SECTION D — FILMS -->
+  <!-- ============================================================ -->
+  <section id="films" class="slide bg-paper-deep" data-label="Films">
+    <span class="sec-letter">D</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section D — Films</div>
+      <h2 class="h-lg fx">Likha Hua Hai — the anthem film.</h2>
+
+      <div class="film-meta fx fx-1">
+        <div class="film-meta-pill"><span class="fm-label">Length</span><span>60–90 seconds</span></div>
+        <div class="film-meta-pill"><span class="fm-label">Language</span><span>Hinglish VO</span></div>
+        <div class="film-meta-pill"><span class="fm-label">Tone</span><span>Warm, cinematic, observational</span></div>
+        <div class="film-meta-pill"><span class="fm-label">Ends on</span><span>Logo + &ldquo;Cello. Likha Hua Hai.&rdquo;</span></div>
+      </div>
+
+      <!-- Script & VO -->
+      <div class="scene-script fx fx-2" style="margin-top: 26px;">
+
+        <div class="scene-block">
+          <div class="scene-label">Scene 1 — Home (Mother &amp; Child)</div>
+          <div class="scene-body">
+            <p>Morning light filters into a warm kitchen. A mother opens a cabinet filled with neatly stacked lunch boxes.</p>
+            <p>Her hand moves across them — pauses, skips a few — like she's choosing carefully, not casually. She finally picks a Cello tiffin box. A small, thoughtful beat.</p>
+            <p>A child walks in, curious.</p>
+            <p class="dialogue">Child: &ldquo;Mumma, woh wala kyun?&rdquo;</p>
+            <p>The mother just smiles — soft, knowing, reassuring. No explanation needed. She places the tiffin into the school bag. The zipper closes. A quiet, secure sound.</p>
+          </div>
+        </div>
+
+        <div class="scene-block">
+          <div class="scene-label">Scene 2 — Hostel (Leaving Home)</div>
+          <div class="scene-body">
+            <p>An 18-year-old boy steps out of a taxi, holding a suitcase. He looks up at the hostel — new place, new life. Excitement mixed with uncertainty.</p>
+            <p>Inside the room, he drops his bag on the bed and starts unpacking. As he pulls things out, a Cello bottle rolls out, slowly coming to rest.</p>
+            <p>He notices it. Picks it up. A faint smile — this wasn't packed by him. A fleeting memory of home. His mother.</p>
+            <p>He places the bottle gently on his study table beside his books. The room feels less unfamiliar now.</p>
+          </div>
+        </div>
+
+        <div class="scene-block">
+          <div class="scene-label">Scene 3 — Home (Couple &amp; Guests)</div>
+          <div class="scene-body">
+            <p>A couple rushes around their home, preparing for guests. Final touches — until they pause. They realize: not enough crockery. Quick glances. Empty shelves. Slight panic.</p>
+            <p>The husband looks at his wife, gets an idea. Pulls out his phone, opens a quick-commerce app, orders Cello crockery.</p>
+            <p>Cut to: The doorbell rings. Next moment — the dining table is beautifully set with elegant Cello crockery. Guests arrive. Laughter fills the space. Food, conversations, warmth.</p>
+          </div>
+        </div>
+
+        <div class="scene-block">
+          <div class="scene-label">Scene 4 — Playground (Childhood)</div>
+          <div class="scene-body">
+            <p>Bright afternoon. Kids doing PT exercises on a school playground. One child slows down — thirsty. He looks toward a table lined with water bottles. Among them, a Cello bottle stands out.</p>
+            <p>He runs over, grabs it, drinks deeply. Relief. Energy returns. He smiles, refreshed, and runs back to join the others.</p>
+          </div>
+        </div>
+
+        <div class="scene-block">
+          <div class="scene-label">Scene 5 — Exam Hall (Focus &amp; Confidence)</div>
+          <div class="scene-body">
+            <p>A quiet exam hall. A student sits, slightly anxious, scanning the room. He opens his pencil pouch. Inside, among a few pens, a Cello Butterflow pen.</p>
+            <p>His expression softens. Relief. He picks it up, starts writing. The pen glides smoothly across the paper. His pace steadies. Confidence builds. A faint smile as he continues — calm, focused, in control.</p>
+          </div>
+        </div>
+
+      </div><!-- /scene-script -->
+
+      <!-- VO -->
+      <div class="vo-block fx fx-3">
+        <div class="vo-label">VO — Hinglish (Running Across All Scenes)</div>
+        <div class="vo-body">
+          &ldquo;Zindagi ke chhote chhote moments mein&hellip;<br>
+          kuch cheezein bas hoti hain&hellip; humesha saath.<br><br>
+          Kabhi maa ka bharosa ban kar,<br>
+          kabhi ghar ki yaadon ka hissa ban kar&hellip;<br><br>
+          Kabhi mehmaanon ki mehfil saja kar,<br>
+          kabhi bachpan ki daud mein saath bhaag kar&hellip;<br><br>
+          Aur kabhi, ek simple sa likhne ka confidence ban kar.&rdquo;
+          <strong>Cello.<br>Har roz ke liye. Har saath ke liye.</strong>
+        </div>
+        <div class="end-frame">
+          End Frame &mdash; Cello logo on clean background.
+          <span>SUPER: Cello &ndash; Har Roz, Har Saath</span>
+        </div>
+      </div>
+
+      <!-- Scene images — full width stacked -->
+      <div class="scene-stack fx fx-4">
+
+        <figure class="shot" style="--ar: 16/7;">
+          <img src="public/scene1.png" alt="Scene 1 · Home — Mother packing tiffin box" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+
+        <figure class="shot" style="--ar: 16/7;">
+          <img src="public/scene%202.png" alt="Scene 2 · Hostel — Leaving home" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+
+        <figure class="shot" style="--ar: 16/7;">
+          <img src="public/scene%203.png" alt="Scene 3 · Home — Couple and guests" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+
+        <figure class="shot" style="--ar: 16/7;">
+          <img src="public/scene%204.png" alt="Scene 4 · Playground — Childhood thirst" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+
+        <figure class="shot" style="--ar: 16/7;">
+          <img src="public/scene%205.png" alt="Scene 5 · Exam Hall — Confidence" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+
+      </div><!-- /scene-stack -->
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 10 · CATEGORY REELS -->
+  <!-- ============================================================ -->
+  <section id="reels" class="slide bg-paper-deep" data-label="Category Reels">
+    <span class="sec-letter">D</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section D — Category films &amp; reels</div>
+      <h2 class="h-lg fx">Category reels — &ldquo;Likha Hua Hai, [category]&rdquo;</h2>
+      <p class="lede fx fx-1">Translating the platform line into modular, bite-sized social films across Cello's core consumer categories — designed for organic shareability on Reels and Shorts.</p>
+
+      <div class="reels-grid fx fx-2">
+        <div class="reel-card">
+          <div>
+            <div class="rr-cat">Kitchen / Houseware</div>
+            <div class="rr-hook">A steel container outlives three kitchen renovations</div>
+          </div>
+          <div class="rr-fmt">15 sec · no VO</div>
+        </div>
+        <div class="reel-card">
+          <div>
+            <div class="rr-cat">Kids (KidzBee)</div>
+            <div class="rr-hook">A kid picks the &ldquo;boring&rdquo; bottle over the flashy one</div>
+          </div>
+          <div class="rr-fmt">15 sec · comedic</div>
+        </div>
+        <div class="reel-card">
+          <div>
+            <div class="rr-cat">Writing / Back-to-school</div>
+            <div class="rr-hook">A pencil box packed the night before the first exam</div>
+          </div>
+          <div class="rr-fmt">20 sec · nostalgic</div>
+        </div>
+        <div class="reel-card">
+          <div>
+            <div class="rr-cat">Festive gifting</div>
+            <div class="rr-hook">A dinner set gifted at one wedding, still in use at the next</div>
+          </div>
+          <div class="rr-fmt">20 sec · warm</div>
+        </div>
+      </div>
+
+      <div class="reels-media-grid fx fx-3" style="margin-top: 28px;">
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(1).jpeg" alt="Category Reel 01 · Houseware" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(2).jpeg" alt="Category Reel 02 · KidzBee" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(3).jpeg" alt="Category Reel 03 · Writing" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(4).jpeg" alt="Category Reel 04 · Festive" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(5).jpeg" alt="Category Reel 05 · Drinkware" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(6).jpeg" alt="Category Reel 06 · Everyday" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+        <figure class="reel-media-card">
+          <img src="public/slide%209%20(7).jpeg" alt="Category Reel 07 · Legacy" loading="lazy">
+          <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </button>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 11 · SECTION E — EXTENSIONS -->
+  <!-- ============================================================ -->
+  <section id="extensions" class="slide bg-paper" data-label="Extensions">
+    <span class="sec-letter">E</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section E — 360° extensions</div>
+      <h2 class="h-lg fx">Beyond the film.</h2>
+      
+      <div class="ooh-showcase fx fx-1" style="margin-top: 24px;">
+        <div class="ooh-img-wrap">
+          <figure class="shot" style="--ar: 16/7; width: 100%;">
+            <img src="public/slide%2010%20ooh.jpeg" alt="Cello Likha Hua Hai — OOH &amp; DOOH Transit Billboard" loading="lazy">
+            <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </figure>
+        </div>
+        <div class="ooh-cards-row" style="margin-top: 16px;">
+          <div class="ext-card">
+            <h3>OOH &amp; DOOH</h3>
+            <p>Large-format transit and metro creative featuring a single iconic product with minimal copy. QR-led DOOH invites people to &ldquo;scan to see what's likha hua hai for you.&rdquo; Airport and premium environments carry the premiumisation message for a higher-income audience.</p>
+          </div>
+          <div class="ext-card">
+            <h3>The &ldquo;Cello Destiny&rdquo; microsite</h3>
+            <p>Visitor answers two or three playful questions and gets a personalised &ldquo;Your Cello Destiny&rdquo; card matching them to a product. Built for shareability first, conversion second — doubling as first-party data capture for retargeting.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ugc-box fx fx-2" style="margin-top: 24px;">
+        <h3 style="font-size: 1.15rem; color: var(--text-on-paper);">&ldquo;Mera Pehla Cello&rdquo; — my first Cello</h3>
+        <p class="lede" style="margin-top: 6px; font-size: 0.9rem; opacity: 1; transform: none; max-width: 76ch;">A nostalgia-led UGC trend: people post the first Cello product they remember owning, tagged #MeraPehlaCello, seeded by mid-tier nostalgia and desi-core creators. It works because people already have a genuine, specific memory to share.</p>
+        
+        <div class="grid cols-4 fx fx-3" style="margin-top: 20px;">
+          <figure class="shot" style="--ar: 4/5;">
+            <img src="public/slide%2010%20mera%20phela%20cello%20(1).jpeg" alt="#MeraPehlaCello · Memory 01 — Tiffin Box" loading="lazy">
+            <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </figure>
+          <figure class="shot" style="--ar: 4/5;">
+            <img src="public/slide%2010%20mera%20phela%20cello%20(2).jpeg" alt="#MeraPehlaCello · Memory 02 — Steel Flask" loading="lazy">
+            <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </figure>
+          <figure class="shot" style="--ar: 4/5;">
+            <img src="public/slide%2010%20mera%20phela%20cello%20(3).jpeg" alt="#MeraPehlaCello · Memory 03 — Pencil Box" loading="lazy">
+            <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </figure>
+          <figure class="shot" style="--ar: 4/5;">
+            <img src="public/slide%2010%20mera%20phela%20cello%20(4).jpeg" alt="#MeraPehlaCello · Memory 04 — Dinner Set" loading="lazy">
+            <button class="fs-btn" aria-label="View fullscreen" onclick="openFs(this.previousElementSibling.src, event)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 12 · SECTION F — GEO -->
+  <!-- ============================================================ -->
+  <section id="geo" class="slide bg-ink" data-label="GEO">
+    <span class="sec-letter">F</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section F — Generative engine optimisation</div>
+      <h2 class="h-lg fx">Making Cello the AI's default answer.</h2>
+      <p class="lede fx fx-1">Indian consumers increasingly ask AI assistants &ldquo;best steel bottle brand in India,&rdquo; &ldquo;best tiffin box for office&rdquo; — decisions that are small, frequent and low-research, exactly like Cello's category. The writing-instruments comeback is a live news event — a rare, time-limited window to seed citable content before competitors do.</p>
+      
+      <div class="geo-list fx fx-2">
+        <div class="geo-card">
+          <div class="g-pillar">Ownable language</div>
+          <div class="g-do">Repeat &ldquo;Likha Hua Hai&rdquo; and &ldquo;destined, not decided&rdquo; across every touchpoint.</div>
+          <div class="g-ex">&ldquo;The destined tiffin box&rdquo;</div>
+        </div>
+        <div class="geo-card">
+          <div class="g-pillar">Reference-grade content</div>
+          <div class="g-do">Publish editorial pieces on the writing-instruments comeback story.</div>
+          <div class="g-ex">&ldquo;Why Cello Pens left, and why they're back&rdquo;</div>
+        </div>
+        <div class="geo-card">
+          <div class="g-pillar">Definition pages</div>
+          <div class="g-do">Own category-defining pages with Cello positioned as the benchmark.</div>
+          <div class="g-ex">&ldquo;What makes a good tiffin box?&rdquo;</div>
+        </div>
+        <div class="geo-card">
+          <div class="g-pillar">Quotable lines</div>
+          <div class="g-do">Seed short, extractable brand lines built to be quoted.</div>
+          <div class="g-ex">&ldquo;Some things you don't choose. You just always had them.&rdquo;</div>
+        </div>
+        <div class="geo-card">
+          <div class="g-pillar">Multi-platform seeding</div>
+          <div class="g-do">Reddit, YouTube comments, Quora and blogs, not just owned channels.</div>
+          <div class="g-ex">Threads on &ldquo;which steel bottle lasts longest&rdquo;</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 13 · SECTION G — MEDIA & METRICS -->
+  <!-- ============================================================ -->
+  <section id="media" class="slide bg-paper" data-label="Media & Metrics">
+    <span class="sec-letter">G</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Section G — Media, route-to-market &amp; metrics</div>
+      <h2 class="h-lg fx">Where this plays, and how we'll know it worked.</h2>
+      
+      <div class="split fx fx-1" style="margin-top: 28px;">
+        <div class="media-card">
+          <h3 style="font-size: 1.15rem; color: var(--text-on-paper); margin-bottom: 12px;">Media rationale</h3>
+          <p class="lede" style="margin-top: 0; font-size: 0.9rem; opacity: 1; transform: none; line-height: 1.6;">Cello's own network of 5,000+ distributors and 1,80,000+ retailers is a pre-built media system — in-store creative carries the campaign at near-zero incremental cost. Modern trade and quick commerce is where a younger audience transacts. TV/CTV remains right for the anthem film. OOH/DOOH carries premiumisation in urban environments.</p>
+        </div>
+        <div class="metrics-card">
+          <h3 style="font-size: 1.15rem; color: var(--text-on-paper); margin-bottom: 12px;">Success metrics</h3>
+          <div class="metric-list">
+            <div class="metric-item"><span class="m-dot"></span><span>Brand recall and association with &ldquo;Likha Hua Hai,&rdquo; pre vs post</span></div>
+            <div class="metric-item"><span class="m-dot"></span><span>Writing Instruments revenue against FY27 target</span></div>
+            <div class="metric-item"><span class="m-dot"></span><span>GEO visibility — share of AI answers citing Cello</span></div>
+            <div class="metric-item"><span class="m-dot"></span><span>Modern trade / e-commerce revenue share vs baseline</span></div>
+            <div class="metric-item"><span class="m-dot"></span><span>UGC volume under #MeraPehlaCello</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 13 · THANK YOU & CONTACT -->
+  <!-- ============================================================ -->
+  <section id="close" class="slide bg-ink-deep" data-label="Thank You">
+    <span class="sec-letter">Q</span>
+    <div class="wrap slide-inner">
+      <div class="kicker fx">Qywam × Cello · Thank You</div>
+      <h2 class="h-lg fx" style="font-size: clamp(2.4rem, 5.2vw, 4.2rem); color: var(--text-on-ink); line-height: 1.05;">Thank You.</h2>
+      <p class="lede fx fx-1" style="max-width: 54ch; margin-top: 14px; font-size: clamp(1.05rem, 1.4vw, 1.25rem); color: var(--text-on-ink-soft);">
+        Let’s take this conversation forward.
+      </p>
+
+      <div class="contact-grid fx fx-2">
+        <div class="contact-card">
+          <div class="contact-name">Prabhdeep Singh Dhanjal</div>
+          <div class="contact-role">Co-Founder</div>
+          <a href="tel:+919319603222" class="contact-phone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>+91 93196 03222</span>
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-name">Sayan Kundu</div>
+          <div class="contact-role">Co-Founder</div>
+          <a href="tel:+918287156273" class="contact-phone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>+91 8287156273</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="foot-meta fx fx-3">
+        <div class="fbrand">Qywam × Cello</div>
+        <div>Strategy &amp; narrative by Qywam · 2026</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<!-- Fullscreen overlay -->
+<div class="fs-overlay" id="fsOverlay" onclick="closeFs()">
+  <button class="fs-close" id="fsClose" onclick="closeFs()" aria-label="Close fullscreen">&#x2715;</button>
+  <img id="fsImg" src="" alt="Fullscreen view">
+</div>
+
+<script>
+function openFs(src, e) {
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  const ov = document.getElementById('fsOverlay');
+  const img = document.getElementById('fsImg');
+  img.src = src;
+  ov.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeFs() {
+  document.getElementById('fsOverlay').classList.remove('open');
+  document.getElementById('fsImg').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeFs();
+});
+</script>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+
+  const curNum = document.getElementById('curNum');
+  const totNum = document.getElementById('totNum');
+  const curLabel = document.getElementById('curLabel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const progressFill = document.getElementById('progressFill');
+  const dotnav = document.getElementById('dotnav');
+  const kbdHint = document.getElementById('kbdHint');
+
+  totNum.textContent = String(total).padStart(2,'0');
+
+  // build dot nav
+  slides.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.innerHTML = '<span class="dot"></span><span class="tip">'+ (s.dataset.label||('Slide '+(i+1))) +'</span>';
+    btn.addEventListener('click', () => goTo(i));
+    dotnav.appendChild(btn);
+  });
+  const dotBtns = Array.from(dotnav.children);
+
+  function pad(n){ return String(n+1).padStart(2,'0'); }
+
+  function render(){
+    slides.forEach((s,i) => {
+      s.classList.remove('leaving-up','leaving-down');
+      if(i === current){
+        s.classList.add('active');
+        s.scrollTop = 0;
+      } else {
+        s.classList.remove('active');
+      }
+    });
+    curNum.textContent = pad(current);
+    curLabel.textContent = slides[current].dataset.label || '';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total-1;
+    progressFill.style.width = ((current+1)/total*100) + '%';
+    dotBtns.forEach((b,i) => b.classList.toggle('active', i===current));
+    runCounters(slides[current]);
+
+    // Reset scroll edge tracking for active slide
+    bottomReachedTime = 0;
+    topReachedTime = Date.now();
+    wasAtBottom = false;
+    wasAtTop = true;
+  }
+
+  function goTo(i){
+    if(i < 0 || i >= total || i === current || animating) return;
+    animating = true;
+    kbdHint.classList.add('hide');
+    current = i;
+    render();
+    setTimeout(()=>{ animating = false; }, 500);
+  }
+
+  function next(){ goTo(current+1); }
+  function prev(){ goTo(current-1); }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  // keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown'){ e.preventDefault(); next(); }
+    else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key === 'Home'){ e.preventDefault(); goTo(0); }
+    else if(e.key === 'End'){ e.preventDefault(); goTo(total-1); }
+  });
+
+  // Edge-aware scroll tracking & debounced transition
+  let wheelLock = false;
+  let bottomReachedTime = 0;
+  let topReachedTime = 0;
+  let wasAtBottom = false;
+  let wasAtTop = true;
+
+  function onSlideScroll(s) {
+    const isScrollable = s.scrollHeight > s.clientHeight + 10;
+    if (!isScrollable) return;
+    
+    const atTop = s.scrollTop <= 4;
+    const atBottom = s.scrollTop + s.clientHeight >= s.scrollHeight - 8;
+    const now = Date.now();
+
+    if (atBottom && !wasAtBottom) {
+      bottomReachedTime = now;
+    } else if (!atBottom) {
+      bottomReachedTime = 0;
+    }
+    wasAtBottom = atBottom;
+
+    if (atTop && !wasAtTop) {
+      topReachedTime = now;
+    } else if (!atTop) {
+      topReachedTime = 0;
+    }
+    wasAtTop = atTop;
+  }
+
+  slides.forEach(s => {
+    s.addEventListener('scroll', () => onSlideScroll(s), { passive: true });
+  });
+
+  window.addEventListener('wheel', (e) => {
+    const activeSlide = slides[current];
+    const isScrollable = activeSlide.scrollHeight > activeSlide.clientHeight + 10;
+    const atTop = activeSlide.scrollTop <= 4;
+    const atBottom = activeSlide.scrollTop + activeSlide.clientHeight >= activeSlide.scrollHeight - 8;
+
+    if (wheelLock) {
+      e.preventDefault();
+      return;
+    }
+
+    if (Math.abs(e.deltaY) < 14) return;
+
+    if (isScrollable) {
+      // While user is scrolling within the slide content, allow natural scrolling
+      if (e.deltaY > 0 && !atBottom) return;
+      if (e.deltaY < 0 && !atTop) return;
+
+      const now = Date.now();
+
+      // At bottom scrolling down -> transition with delay
+      if (e.deltaY > 0 && atBottom) {
+        e.preventDefault();
+        if (bottomReachedTime === 0) bottomReachedTime = now;
+        // Require user to have reached the bottom for at least 380ms (absorbs scroll inertia)
+        if (now - bottomReachedTime < 380) return;
+
+        wheelLock = true;
+        setTimeout(() => {
+          next();
+          setTimeout(() => { wheelLock = false; }, 650);
+        }, 220); // intentional end-of-slide transition delay
+        return;
+      }
+
+      // At top scrolling up -> transition with delay
+      if (e.deltaY < 0 && atTop) {
+        e.preventDefault();
+        if (topReachedTime === 0) topReachedTime = now;
+        if (now - topReachedTime < 380) return;
+
+        wheelLock = true;
+        setTimeout(() => {
+          prev();
+          setTimeout(() => { wheelLock = false; }, 650);
+        }, 220);
+        return;
+      }
+    } else {
+      // Non-scrollable slide (fits screen)
+      if (Math.abs(e.deltaY) > 20) {
+        e.preventDefault();
+        wheelLock = true;
+        if (e.deltaY > 0) next();
+        else prev();
+        setTimeout(() => { wheelLock = false; }, 650);
+      }
+    }
+  }, { passive: false });
+
+  // touch swipe
+  let touchStartY = null, touchStartX = null;
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    if (touchStartY === null || animating || wheelLock) return;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const activeSlide = slides[current];
+    const isScrollable = activeSlide.scrollHeight > activeSlide.clientHeight + 10;
+    const atTop = activeSlide.scrollTop <= 4;
+    const atBottom = activeSlide.scrollTop + activeSlide.clientHeight >= activeSlide.scrollHeight - 8;
+
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      wheelLock = true;
+      if (dx < 0) next(); else prev();
+      setTimeout(() => { wheelLock = false; }, 600);
+    } else if (Math.abs(dy) > 55) {
+      if (!isScrollable) {
+        wheelLock = true;
+        if (dy < 0) next(); else prev();
+        setTimeout(() => { wheelLock = false; }, 600);
+      } else {
+        if (dy < 0 && atBottom) {
+          wheelLock = true;
+          setTimeout(() => {
+            next();
+            setTimeout(() => { wheelLock = false; }, 600);
+          }, 180);
+        } else if (dy > 0 && atTop) {
+          wheelLock = true;
+          setTimeout(() => {
+            prev();
+            setTimeout(() => { wheelLock = false; }, 600);
+          }, 180);
+        }
+      }
+    }
+    touchStartY = null; touchStartX = null;
+  }, { passive: true });
+
+  // animated counters
+  function runCounters(slide){
+    const nums = slide.querySelectorAll('.num[data-count]');
+    nums.forEach(el => {
+      if(el.dataset.done) return;
+      el.dataset.done = '1';
+      const target = parseFloat(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const format = el.dataset.format;
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min(1, (now-start)/duration);
+        const eased = 1 - Math.pow(1-p, 3);
+        let val = target * eased;
+        let display;
+        if(format === 'lakh'){
+          display = Math.round(val).toLocaleString('en-IN');
+        } else if(Number.isInteger(target)) {
+          display = Math.round(val).toLocaleString('en-IN');
+        } else {
+          display = val.toFixed(1);
+        }
+        el.textContent = prefix + display + suffix;
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  // init
+  render();
+
+  // hide keyboard hint after initial interaction or delay
+  setTimeout(()=> kbdHint.classList.add('hide'), 4500);
+})();
+</script>
+
+</body>
+</html>
